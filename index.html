@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Sticky notes</title>
+
+	<script>
+//		function addNote(title, text){
+		function addNote(text){
+		var node = document.createElement("LI");
+		var node2 = document.createElement("A");
+		var textnode = document.createTextNode(text);
+		node.appendChild(node2);
+		node2.appendChild(textnode);
+		document.getElementById("notes").appendChild(node);
+		}
+
+		function reqListener () {
+		var results = JSON.parse(this.responseText);
+		for(var i = 0; i< results.length;i++){
+			addNote(results[i].notes);
+		}
+	}
+
+	var oReq = new XMLHttpRequest();
+	oReq.addEventListener("load", reqListener);
+	oReq.open("GET", "http://127.0.0.1/server.php");
+	oReq.send();
+	</script>
+</head>
+
+<body>
+    <h1 id="header-h">Sticky Notes</h1>
+    <p id="header-p">Version 1</p>
+    <ul id="notes">
+        </li>
+    </ul>
+</body>
+
+</html>
